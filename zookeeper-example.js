@@ -1,4 +1,5 @@
-var zookeeper = require("github.com/quilt/zookeeper");
+const {createDeployment, Machine, githubKeys} = require("@quilt/quilt");
+var zookeeper = require("./zookeeper.js");
 
 var n = 3;
 var zoo = new zookeeper.Zookeeper(n);

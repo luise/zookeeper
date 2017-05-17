@@ -1,3 +1,9 @@
 {
-    "main": "./zookeeper.js"
+  "name": "@quilt/zookeeper",
+  "version": "0.0.1",
+  "main": "./zookeeper.js",
+  "license": "MIT",
+  "dependencies": {
+    "@quilt/quilt": "quilt/quilt"
+  }
 }

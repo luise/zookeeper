@@ -1,3 +1,5 @@
+const {Service, Container, PortRange} = require("@quilt/quilt");
+
 var image = "jplock/zookeeper:3.4.8";
 var dataDir = "/tmp/zookeeper";
 
