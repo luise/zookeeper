@@ -33,7 +33,7 @@ function Zookeeper(n) {
     cns[i].filepathToContent[`${dataDir}/myid`] = i.toString();
   });
 
-  this.zoo.connect(new PortRange(1000, 65535), this.zoo);
+  this.zoo.allowFrom(this.zoo, new PortRange(1000, 65535));
 
   this.deploy = function deploy(deployment) {
     deployment.deploy(this.zoo);
