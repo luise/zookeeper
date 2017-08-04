@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+    - "7.10.0"
+
+install:
+    - npm install .
+    - curl -sL -o ./quilt https://github.com/quilt/quilt/releases/download/dev/quilt_linux
+        && chmod +x ./quilt
+
+before_script:
+    - npm install -g gulp-cli
+
+script:
+    - gulp lint
+    - ./quilt inspect ./zookeeper-example.js graphviz
+
+notifications:
+    slack:
+        secure: 2NB1XPdEGSplu6RppjTr3MvKFfIKYRH/yVJB4etdZDprkhMMwKaybtJkbFl/HGA3j/92yV0zUhQP1l4jhVWLmdXqxUpJ52YIHC6n1feJarDXa1/605pG8ZOT+bC7QV7W8nJAhRg7QORSkLA5Iw3ku450h6i8HlEv3TOmB2qKr0UXaN+2GQeX+jamz2oa9+oeWYleqn+PglUEx9xJw0watcM1NErW6kLcC2crNVdyEdFR/xcxsr4MZYtj7j3I5cqbCph7JAcPvufCRtA3CbOPpDb1ghjFqMpJCdVSvKK38Y8UAG0eeD+78RyKjIhLtwlWWO2VeeWdq11wXnPZ2iXsHcd2N8Gfx2nv9xNEOrib9M1+Y6cPU9S8RzHQvzH99A4PEFTQ+gEN6TOrNxthrCmVnJMH+VfB/5aO9R/RXBbINvUoDoQdmO5E6pvQRDpONK1IJzCXz9GYSBDpCwefbQ8YHcmSqOXNuWFydFV+K9+2U4ZHtuGpdKWMP5UPim7jJ0c5D053aHkEs2jkdOW3GDtdOGPYxIvAOaAnFCrmn+7GxCUHLTkPCuvERp7cgfPGukFx0cqmS4wlsZaeq+rZEWoTn6X1PjHyMLdsCWwRAm7W5FRptxhZmpf35kEjkivuAvpwYYT3mbO53w7xzis2uaIrBAbCsqk0acdN/TPqUKbkDfk=
