@@ -1,4 +1,4 @@
-const { Service, Container, PortRange } = require('@quilt/quilt');
+const { Container, PortRange, allow } = require('@quilt/quilt');
 
 const image = 'jplock/zookeeper:3.4.8';
 const dataDir = '/tmp/zookeeper';
@@ -17,26 +17,24 @@ syncLimit=2
 }
 
 function Zookeeper(n) {
-  const cns = new Container(image)
-    .replicate(n);
-  this.zoo = new Service('zookeeper', cns);
+  const containers = new Container('zookeeper', image).replicate(n);
 
-  const cluster = {};
-  cns.forEach((cn, i) => {
-    cns[i].setHostname(`zk${i}`);
-    cluster[i.toString()] = cns[i].getHostname();
+  const zkIDToHostname = {};
+  containers.forEach((cn, i) => {
+    zkIDToHostname[i.toString()] = cn.getHostname();
   });
 
-  const cfg = buildConfig(cluster);
-  cns.forEach((cn, i) => {
-    cns[i].filepathToContent['/opt/zookeeper/conf/zoo.cfg'] = cfg;
-    cns[i].filepathToContent[`${dataDir}/myid`] = i.toString();
+  const cfg = buildConfig(zkIDToHostname);
+  containers.forEach((_, i) => {
+    const cn = containers[i];
+    cn.filepathToContent['/opt/zookeeper/conf/zoo.cfg'] = cfg;
+    cn.filepathToContent[`${dataDir}/myid`] = i.toString();
   });
 
-  this.zoo.allowFrom(this.zoo, new PortRange(1000, 65535));
+  allow(containers, containers, new PortRange(1000, 65535));
 
   this.deploy = function deploy(deployment) {
-    deployment.deploy(this.zoo);
+    deployment.deploy(containers);
   };
 }
 
