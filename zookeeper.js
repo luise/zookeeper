@@ -17,7 +17,10 @@ syncLimit=2
 }
 
 function Zookeeper(n) {
-  const containers = new Container('zookeeper', image).replicate(n);
+  const containers = [];
+  for (let i = 0; i < n; i += 1) {
+    containers.push(new Container('zookeeper', image));
+  }
 
   const zkIDToHostname = {};
   containers.forEach((cn, i) => {
