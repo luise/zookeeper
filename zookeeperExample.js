@@ -15,4 +15,4 @@ const baseMachine = new Machine({
 
 deployment.deploy(baseMachine.asMaster());
 deployment.deploy(baseMachine.asWorker().replicate(n));
-deployment.deploy(zoo);
+zoo.deploy(deployment);

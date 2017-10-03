@@ -37,7 +37,7 @@ function Zookeeper(n) {
   allow(containers, containers, new PortRange(1000, 65535));
 
   this.deploy = function deploy(deployment) {
-    deployment.deploy(containers);
+    containers.forEach(container => container.deploy(deployment));
   };
 }
 
