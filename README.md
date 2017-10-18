@@ -1,4 +1,4 @@
-# ZooKeeper for Quilt.js
+# ZooKeeper for Kelda.js
 
-This repository implements a ZooKeeper specification for Quilt.js.  See
-[Quilt](http://quilt.io) for more information.
+This repository implements a ZooKeeper specification for Kelda.js.  See
+[Kelda](http://kelda.io) for more information.

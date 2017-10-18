@@ -1,4 +1,4 @@
-const { Container, PortRange, allow } = require('@quilt/quilt');
+const { Container, PortRange, allow } = require('kelda');
 
 const image = 'jplock/zookeeper:3.4.8';
 const dataDir = '/tmp/zookeeper';

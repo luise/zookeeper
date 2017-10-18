@@ -1,4 +1,4 @@
-const { createDeployment, Machine, githubKeys } = require('@quilt/quilt');
+const { createDeployment, Machine, githubKeys } = require('kelda');
 const zookeeper = require('./zookeeper.js');
 
 const n = 3;
