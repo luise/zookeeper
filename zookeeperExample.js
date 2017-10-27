@@ -1,9 +1,8 @@
-const { createDeployment, Machine, githubKeys } = require('kelda');
+const { Infrastructure, Machine, githubKeys } = require('kelda');
 const zookeeper = require('./zookeeper.js');
 
 const n = 3;
 const zoo = new zookeeper.Zookeeper(n);
-const deployment = createDeployment({});
 
 const baseMachine = new Machine({
   provider: 'Amazon',
@@ -13,6 +12,5 @@ const baseMachine = new Machine({
   sshKeys: githubKeys('ejj'), // Replace with your GitHub username.
 });
 
-deployment.deploy(baseMachine.asMaster());
-deployment.deploy(baseMachine.asWorker().replicate(n));
-zoo.deploy(deployment);
+const infra = new Infrastructure(baseMachine, baseMachine.replicate(n));
+zoo.deploy(infra);
