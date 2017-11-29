@@ -1,4 +1,4 @@
-const { Container, PortRange, allow } = require('kelda');
+const { Container, allow } = require('kelda');
 
 const image = 'jplock/zookeeper:3.4.8';
 const dataDir = '/tmp/zookeeper';
@@ -34,7 +34,16 @@ function Zookeeper(n) {
     cn.filepathToContent[`${dataDir}/myid`] = i.toString();
   });
 
-  allow(containers, containers, new PortRange(1000, 65535));
+  // Used by peers for general communication.
+  allow(containers, containers, 2888);
+
+  // Used by peers for leader election.
+  allow(containers, containers, 3888);
+
+  // Used for client connections. While not strictly necessary, it's
+  // convenient for the containers in the cluster to be able to create a client
+  // for debugging.
+  allow(containers, containers, 2181);
 
   this.deploy = function deploy(deployment) {
     containers.forEach(container => container.deploy(deployment));
