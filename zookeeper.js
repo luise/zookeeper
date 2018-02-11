@@ -19,7 +19,7 @@ syncLimit=2
 function Zookeeper(n) {
   const containers = [];
   for (let i = 0; i < n; i += 1) {
-    containers.push(new Container('zookeeper', image));
+    containers.push(new Container({ name: 'zookeeper', image }));
   }
 
   const zkIDToHostname = {};

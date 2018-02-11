@@ -11,5 +11,8 @@ const baseMachine = new Machine({
   diskSize: 32,
 });
 
-const infra = new Infrastructure(baseMachine, baseMachine.replicate(n));
+const infra = new Infrastructure({
+  masters: baseMachine,
+  workers: baseMachine.replicate(n),
+});
 zoo.deploy(infra);
